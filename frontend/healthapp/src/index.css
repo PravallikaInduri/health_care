@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   AZURE HEALTHCARE BLUE THEME
+   ---------------------------------------------------------------------
+   Spec colors (the source of truth):
+     --primary       #0EA5E9   (button / accent)
+     --primary-dark  #0284C7   (button hover)
+     --primary-light #E0F7FF   (soft tint background)
+     --background    #F8FAFC
+     --surface       #FFFFFF
+     --text-primary  #0F172A
+     --text-secondary#64748B
+     --border        #E2E8F0
+     --success       #22C55E
+     --warning       #F59E0B
+     --danger        #EF4444
+
+   Strategy: override Tailwind's `blue` / `indigo` / `sky` / `cyan`
+   palettes at the @theme layer so every existing
+   `bg-blue-600`, `text-indigo-700`, `from-sky-500`, etc. automatically
+   re-renders in the brand azure-blue palette WITHOUT touching a single
+   component file. Components that need the brand palette directly
+   should use the `brand-*` aliases (e.g. `bg-brand-600`).
+====================================================================== */
+@theme {
+  /* ---- blue → azure (most components use this palette) ---- */
+  --color-blue-50:  #e0f7ff;
+  --color-blue-100: #bae6fd;
+  --color-blue-200: #7dd3fc;
+  --color-blue-300: #38bdf8;
+  --color-blue-400: #38bdf8;
+  --color-blue-500: #0ea5e9;
+  --color-blue-600: #0ea5e9;
+  --color-blue-700: #0284c7;
+  --color-blue-800: #0369a1;
+  --color-blue-900: #075985;
+  --color-blue-950: #082f49;
+
+  /* ---- indigo → matched to azure (legacy blue→indigo gradients) ---- */
+  --color-indigo-50:  #e0f7ff;
+  --color-indigo-100: #bae6fd;
+  --color-indigo-200: #7dd3fc;
+  --color-indigo-300: #38bdf8;
+  --color-indigo-400: #38bdf8;
+  --color-indigo-500: #0ea5e9;
+  --color-indigo-600: #0ea5e9;
+  --color-indigo-700: #0284c7;
+  --color-indigo-800: #0369a1;
+  --color-indigo-900: #075985;
+  --color-indigo-950: #082f49;
+
+  /* ---- sky → identical to brand azure ---- */
+  --color-sky-50:  #e0f7ff;
+  --color-sky-100: #bae6fd;
+  --color-sky-200: #7dd3fc;
+  --color-sky-300: #38bdf8;
+  --color-sky-400: #38bdf8;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0ea5e9;
+  --color-sky-700: #0284c7;
+  --color-sky-800: #0369a1;
+  --color-sky-900: #075985;
+  --color-sky-950: #082f49;
+
+  /* ---- cyan → matched to brand azure ---- */
+  --color-cyan-50:  #e0f7ff;
+  --color-cyan-100: #bae6fd;
+  --color-cyan-200: #7dd3fc;
+  --color-cyan-300: #38bdf8;
+  --color-cyan-400: #38bdf8;
+  --color-cyan-500: #0ea5e9;
+  --color-cyan-600: #0ea5e9;
+  --color-cyan-700: #0284c7;
+  --color-cyan-800: #0369a1;
+  --color-cyan-900: #075985;
+  --color-cyan-950: #082f49;
+
+  /* ---- explicit brand palette (used by the shared dashboard kit) ----
+     600 = primary, 700 = primary hover — matches the spec exactly. */
+  --color-brand-50:  #e0f7ff;
+  --color-brand-100: #bae6fd;
+  --color-brand-200: #7dd3fc;
+  --color-brand-300: #38bdf8;
+  --color-brand-400: #38bdf8;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0ea5e9;
+  --color-brand-700: #0284c7;
+  --color-brand-800: #0369a1;
+  --color-brand-900: #075985;
+  --color-brand-950: #082f49;
+}
+
+/* =====================================================================
+   Raw CSS variables — exposed exactly as the spec asked.
+   These power non-Tailwind elements (sidebar gradient, focus ring,
+   bespoke inline styles, etc.).
+====================================================================== */
+:root {
+  /* Spec tokens (1:1 with the brief) */
+  --primary:           #0ea5e9;
+  --primary-dark:      #0284c7;
+  --primary-light:     #e0f7ff;
+  --background:        #f8fafc;
+  --surface:           #ffffff;
+  --text-primary:      #0f172a;
+  --text-secondary:    #64748b;
+  --border:            #e2e8f0;
+  --success:           #22c55e;
+  --warning:           #f59e0b;
+  --danger:            #ef4444;
+
+  /* Aliases kept for backwards compatibility with existing component code */
+  --brand-primary:        var(--primary);
+  --brand-primary-dark:   var(--primary-dark);
+  --brand-primary-light:  var(--primary-light);
+  --brand-secondary:      #0369a1;
+  --brand-success:        var(--success);
+  --brand-bg:             var(--background);
+  --brand-surface:        var(--surface);
+  --brand-text:           var(--text-primary);
+  --brand-text-muted:     var(--text-secondary);
+  --brand-border:         var(--border);
+  --brand-sidebar-gradient: linear-gradient(
+    135deg,
+    #0ea5e9 0%,
+    #38bdf8 100%
+  );
+  --brand-shadow:        0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+/* =====================================================================
+   Global polish — soft healthcare background + brand focus rings
+====================================================================== */
+html,
+body,
+#root {
+  background: var(--background);
+  color: var(--text-primary);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Browser-default focus rings replaced with brand focus rings.
+   Tailwind's `focus:ring-*` utilities still win because they are
+   layered on top of this. */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.30);
+  border-radius: inherit;
+}
+
+/* =====================================================================
+   Reusable utility classes
+====================================================================== */
+.brand-card {
+  background: var(--surface);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: var(--brand-shadow);
+}
+
+.brand-sidebar {
+  background: var(--surface);
+  color: var(--text-primary);
+  border-right: 1px solid var(--border);
+}
